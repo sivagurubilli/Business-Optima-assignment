@@ -16,17 +16,8 @@ getCurrentDateAndTime = () => {
         fullName,
         emailAddress,
         password,
-        confirmPassword,
-        dateOfBirth,
         phoneNumber,
-        address,
-        city,
-        state,
-        zipCode,
-        country,
-        securityQuestion,
-        securityAnswer,
-        firebaseToken
+       
       } = req.body;
   
       let checkemailAddress = await User.findOne({ emailAddress, isDeleted: false });
@@ -38,16 +29,7 @@ getCurrentDateAndTime = () => {
         fullName,
         emailAddress,
         password,
-        dateOfBirth,
         phoneNumber,
-        address,
-        city,
-        state,
-        zipCode,
-        country,
-        securityQuestion,
-        securityAnswer,
-        firebaseToken,
         createdAt: currentDateTime,
         updatedAt: currentDateTime,
         
@@ -101,4 +83,23 @@ getCurrentDateAndTime = () => {
     }
   }
   
+exports.editprofile = async (req, res) => {
+    const userId = req.user.userId;
+    const {  fullName,
+      emailAddress,
+      phoneNumber,
+      password
+       } = req.body;
+  
+    try {
+      let updateFields = {};
+      if (name) updateFields.name = name;
+      if (password) updateFields.password = await bcrypt.hash(password, 10);
+  
+      await db.query('UPDATE users SET ? WHERE id = ?', [updateFields, userId]);
+      res.json({ message: 'Profile updated successfully' });
+    } catch (error) {
+      res.status(500).send('Error updating profile');
+    }
+  };
   

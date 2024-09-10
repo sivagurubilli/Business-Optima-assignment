@@ -15,13 +15,13 @@ import {
   isValidPhoneNumber,
 
 } from "../utils/Validation";
-import { signup } from "../store/slices/auth";
+import { EditProfile, signup } from "../store/slices/auth";
 import { RotatingLines } from "react-loader-spinner";
 
 //------------------------------------------------------------------------------------------
 //---------------------------------------IMPORT END---------------------------------------
 
-function Signup() {
+function EditProfiles() {
   const [fullName, setfullName] = useState("");
   const [email, setemail] = useState("");
   const [password, setPassword] = useState();
@@ -95,8 +95,6 @@ function Signup() {
       validationErrors.password =
         "Password should be at least 8 characters long and contain at least one uppercase letter and one digit";
     }
-
-    // Validate Confirm Password
    
 
  
@@ -126,11 +124,11 @@ function Signup() {
        
       };
       setLoading(true);
-      dispatch(signup(item))
+      dispatch(EditProfile(item))
         .unwrap()
         .then((data) => {
           setLoading(false);
-          navigate("/login");
+          navigate("/");
         })
         .catch(({ message }) => {
           setLoading(false);
@@ -199,7 +197,7 @@ function Signup() {
             }}
           >
             <h9 className="align-left "> Welcome</h9>
-            <h2 className="h3 align-left"> Sign up</h2>
+            <h2 className="h3 align-left"> Edit Profile</h2>
             <Form
               noValidate
               autoComplete="off"
@@ -335,4 +333,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default EditProfiles;

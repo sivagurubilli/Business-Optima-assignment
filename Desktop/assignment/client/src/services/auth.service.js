@@ -66,6 +66,31 @@ const remainingTime = expiryTimeInMilliseconds - currentTime;
             });
     }
 
+
+    static editProfile() {
+        let user = JSON.parse(localStorage.getItem("user"));
+        const token = user?.data?.accessToken; // Access token from the user data
+        const config = {
+            headers: {
+                "access-token": token,
+            },
+        };
+        return axios
+            .get(API_PATHS.editProfile, config)
+            .then((response) => {
+                if (response.data) {
+                    // Do something with the response if needed
+                }
+                return response.data;
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    // Token expired or unauthorized, log the user out
+                    AuthService.logout();
+                }
+                throw error;
+            });
+    }
     static removeUserDetails() {
         localStorage.removeItem("user");
     }

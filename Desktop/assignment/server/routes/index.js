@@ -6,7 +6,8 @@ var router = express.Router();
 let {
   register,
   login,
-  getProfile
+  getProfile,
+  editprofile
 } = require('../controllers/auth.c')
 let  {  registrationValidations,loginValidations} = require("../validations/registration.validation")
 let {isValidPostMethod,isValidGetMethod} = require("../middlewares/validatemethods")
@@ -14,6 +15,7 @@ let {isValidPostMethod,isValidGetMethod} = require("../middlewares/validatemetho
 router.route('/api/register').all(isValidPostMethod).post(registrationValidations, register);
 router.route('/api/login').all(isValidPostMethod).post(loginValidations, login);
 router.route('/api/profile').all(isValidGetMethod).get( validateUserAccessToken,getProfile);
+router.route('/api/updateprofile').all(isValidGetMethod).put( validateUserAccessToken,editprofile);
 
 
 //Route not found error handler

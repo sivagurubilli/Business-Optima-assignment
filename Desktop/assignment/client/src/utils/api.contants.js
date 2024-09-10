@@ -5,5 +5,6 @@ export const API_PATHS = {
     //auth
     signup: "/register",
      login: "/login",
-     Getprofile:"/profile"
+     Getprofile:"/profile",
+     editProfile:"/updateprofile"
 }

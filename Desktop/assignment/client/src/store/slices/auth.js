@@ -59,6 +59,23 @@ export const getProfile = createAsyncThunk(
 
 
 
+export const EditProfile = createAsyncThunk(
+    "auth/editProfile",
+    async (thunkAPI) => {
+        try {
+            const data = await AuthService.editProfile();
+            return { user: data };
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue({ message });
+        }
+    }
+);
 
 
 export const logout = createAsyncThunk("auth/logout", async () => {
